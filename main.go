@@ -20,6 +20,7 @@ func main() {
 	})
 
 	router.GET("/tickets", ticketCtrl.Health)
+	router.POST("/tickets", ticketCtrl.Generate)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
