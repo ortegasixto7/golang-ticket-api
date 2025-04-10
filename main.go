@@ -10,6 +10,7 @@ import (
 func main() {
 
 	var ticketCtrl controllers.TicketController
+	var integrationCtrl controllers.IntegrationController
 
 	router := gin.Default()
 
@@ -21,6 +22,9 @@ func main() {
 
 	router.GET("/tickets", ticketCtrl.Health)
 	router.POST("/tickets", ticketCtrl.Generate)
+
+	router.GET("/integrations", integrationCtrl.Health)
+	router.POST("/integrations", integrationCtrl.Generate)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
