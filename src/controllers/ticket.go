@@ -12,7 +12,7 @@ type TicketController struct {
 
 func (ctrl *TicketController) Health(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "pong from tickets",
+		"message": "pong from tickets 1",
 	})
 }
 
