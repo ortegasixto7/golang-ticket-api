@@ -1,6 +1,10 @@
-package models
+package integration
 
-import "github.com/google/uuid"
+import (
+	"strings"
+
+	"github.com/google/uuid"
+)
 
 type Integration struct {
 	ID          string
@@ -15,6 +19,8 @@ type Integration struct {
 
 func (i *Integration) GenerateToken() string {
 	token := uuid.New()
-	i.AppToken = token.String()
+	tokenString := token.String()
+	tokenString = strings.ReplaceAll(tokenString, "-", "")
+	i.AppToken = strings.ToUpper(tokenString)
 	return i.AppToken
 }

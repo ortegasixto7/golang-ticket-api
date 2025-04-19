@@ -1,9 +1,8 @@
 package signup
 
-type SignUpResponse struct {
+type Response struct {
 	ID          string
 	Name        string
 	Description string
-	PublicKey   string
-	PrivateKey  string
+	AppToken    string
 }
