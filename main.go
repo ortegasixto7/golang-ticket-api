@@ -5,12 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ortegasixto7/golang-ticket/src/controllers"
+	integrationSignUp "github.com/ortegasixto7/golang-ticket/src/integration/actions/signup"
 )
 
 func main() {
 
 	var ticketCtrl controllers.TicketController
-	var integrationCtrl controllers.IntegrationController
+	var integrationSignUpCtrl integrationSignUp.Controller
 
 	router := gin.Default()
 
@@ -22,9 +23,7 @@ func main() {
 
 	router.GET("/tickets", ticketCtrl.Health)
 	router.POST("/tickets", ticketCtrl.Generate)
-
-	router.GET("/integrations", integrationCtrl.Health)
-	router.POST("/integrations", integrationCtrl.Generate)
+	router.POST("/apps", integrationSignUpCtrl.SignUp)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
