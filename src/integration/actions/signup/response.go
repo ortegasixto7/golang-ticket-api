@@ -1,8 +1,8 @@
 package signup
 
 type Response struct {
-	ID          string
-	Name        string
-	Description string
-	AppToken    string
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	AppToken    string `json:"app_token"`
 }

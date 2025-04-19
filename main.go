@@ -1,14 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ortegasixto7/golang-ticket/src/controllers"
+	"github.com/ortegasixto7/golang-ticket/src/external/database"
 	integrationSignUp "github.com/ortegasixto7/golang-ticket/src/integration/actions/signup"
 )
 
 func main() {
+
+	fmt.Println("Starting app ...")
+
+	database.InitializeDatabase()
 
 	var ticketCtrl controllers.TicketController
 	var integrationSignUpCtrl integrationSignUp.Controller
