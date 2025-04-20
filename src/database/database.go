@@ -12,10 +12,10 @@ import (
 
 var DB *gorm.DB
 
-func InitializeDatabase() {
+func InitDatabase() {
 	databaseURL := os.Getenv("DB_URL")
 	if databaseURL == "" {
-		log.Fatal("La variable de entorno DB_URL no está configurada.")
+		log.Fatal("Env var DB_URL no set.")
 		return
 	}
 
@@ -41,7 +41,7 @@ func InitializeDatabase() {
 	}
 
 	// Pasar el *sql.DB a goose.Up
-	if err := goose.Up(sqlDB, "./migrations"); err != nil {
+	if err := goose.Up(sqlDB, "./src/database/migrations"); err != nil {
 		log.Fatalf("failed to run migrations: %v\n", err)
 	}
 
