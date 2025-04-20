@@ -1,18 +1,21 @@
 package database
 
 import (
+	"time"
+
 	"github.com/ortegasixto7/golang-ticket/src/integration"
 )
 
 type Integration struct {
-	ID          string `gorm:"type:varchar(100);not null"`
-	Name        string `gorm:"type:varchar(100);not null"`
-	Description string `gorm:"type:varchar(255);not null"`
-	AppToken    string `gorm:"type:varchar(100);not null;unique"`
-	IsEnabled   bool   `gorm:"type:boolean;default:true"`
-	CreatedAt   int64  `gorm:"type:bigint;not null"`
-	UpdatedAt   int64  `gorm:"type:bigint;not null"`
-	DeletedAt   int64  `gorm:"type:bigint;not null"`
+	ID          string    `gorm:"type:varchar(100);not null"`
+	Name        string    `gorm:"type:varchar(100);not null"`
+	Description string    `gorm:"type:varchar(255);not null"`
+	AppToken    string    `gorm:"type:varchar(100);not null;unique"`
+	IsEnabled   bool      `gorm:"type:boolean;default:true"`
+	CreatedAt   time.Time `gorm:"type:timestamptz;not null"`
+	UpdatedAt   time.Time `gorm:"type:timestamptz;not null"`
+	DeletedAt   time.Time `gorm:"type:timestamptz"`
+	ExpiresAt   time.Time `gorm:"type:timestamptz"`
 }
 
 func FromDomain(i *integration.Integration) *Integration {

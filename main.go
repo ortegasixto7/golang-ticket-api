@@ -2,22 +2,37 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/ortegasixto7/golang-ticket/src/controllers"
 	"github.com/ortegasixto7/golang-ticket/src/external/database"
 	integrationSignUp "github.com/ortegasixto7/golang-ticket/src/integration/actions/signup"
+	integrationDB "github.com/ortegasixto7/golang-ticket/src/integration/database"
 )
 
 func main() {
+
+	// Carga las variables de entorno desde el archivo .env
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Error loading .env file")
+		// Si no se encuentra el archivo .env, la aplicación puede seguir funcionando
+		// utilizando las variables de entorno del sistema.
+	}
 
 	fmt.Println("Starting app ...")
 
 	database.InitializeDatabase()
 
 	var ticketCtrl controllers.TicketController
-	var integrationSignUpCtrl integrationSignUp.Controller
+
+	integrationRepo := integrationDB.NewIntegrationRepository()
+	integrationSignUpCtrl := integrationSignUp.Controller{
+		Repo: integrationRepo,
+	}
 
 	router := gin.Default()
 

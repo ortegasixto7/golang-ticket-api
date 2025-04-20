@@ -2,6 +2,7 @@ package integration
 
 import (
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -12,9 +13,10 @@ type Integration struct {
 	Description string
 	AppToken    string
 	IsEnabled   bool
-	CreatedAt   int64
-	UpdatedAt   int64
-	DeletedAt   int64
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   time.Time
+	ExpiresAt   time.Time
 }
 
 func (i *Integration) GenerateToken() string {

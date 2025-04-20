@@ -4,9 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ortegasixto7/golang-ticket/src/integration/database"
 )
 
-type Controller struct{}
+type Controller struct {
+	Repo *database.IntegrationRepository
+}
 
 func (ctrl *Controller) SignUp(ctx *gin.Context) {
 	request := new(Request)
@@ -16,7 +19,7 @@ func (ctrl *Controller) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	res, err := Execute(request)
+	res, err := Execute(request, ctrl.Repo)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
