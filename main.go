@@ -8,9 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/ortegasixto7/golang-ticket/src/controllers"
-	"github.com/ortegasixto7/golang-ticket/src/external/database"
+	"github.com/ortegasixto7/golang-ticket/src/database"
 	integrationSignUp "github.com/ortegasixto7/golang-ticket/src/integration/actions/signup"
-	integrationDB "github.com/ortegasixto7/golang-ticket/src/integration/database"
+	integrationDB "github.com/ortegasixto7/golang-ticket/src/integration/repository"
 )
 
 func main() {
@@ -25,13 +25,14 @@ func main() {
 
 	fmt.Println("Starting app ...")
 
-	database.InitializeDatabase()
+	database.InitDatabase()
 
 	var ticketCtrl controllers.TicketController
 
-	integrationRepo := integrationDB.NewIntegrationRepository()
+	var integrationRepo integrationDB.IntegrationRepositoryInterface
+	integrationRepo = integrationDB.NewIntegrationRepository()
 	integrationSignUpCtrl := integrationSignUp.Controller{
-		Repo: integrationRepo,
+		Repo: &integrationRepo,
 	}
 
 	router := gin.Default()

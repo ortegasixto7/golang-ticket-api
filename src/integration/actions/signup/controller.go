@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ortegasixto7/golang-ticket/src/integration/database"
+	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
 )
 
 type Controller struct {
-	Repo *database.IntegrationRepository
+	Repo *repository.IntegrationRepositoryInterface
 }
 
 func (ctrl *Controller) SignUp(ctx *gin.Context) {
@@ -25,5 +25,5 @@ func (ctrl *Controller) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, res)
+	ctx.JSON(http.StatusCreated, res)
 }

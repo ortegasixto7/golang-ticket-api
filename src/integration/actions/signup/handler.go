@@ -1,24 +1,23 @@
 package signup
 
 import (
-	"time"
-
+	"github.com/google/uuid"
 	"github.com/ortegasixto7/golang-ticket/src/integration"
-	"github.com/ortegasixto7/golang-ticket/src/integration/database"
+	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
 )
 
-func Execute(req *Request, repo *database.IntegrationRepository) (*Response, error) {
+func Execute(req *Request, repo *repository.IntegrationRepositoryInterface) (*Response, error) {
 	if err := req.Validate(); err != nil {
 		return nil, err
 	}
 
 	integration := integration.Integration{
-		ID:          time.Now().Format(time.RFC3339),
+		ID:          uuid.New().String(),
 		Name:        req.Name,
 		Description: req.Description,
 	}
 	integration.GenerateToken()
-	if _, err := repo.Insert(&integration); err != nil {
+	if _, err := (*repo).Save(&integration); err != nil {
 		return nil, err
 	}
 
