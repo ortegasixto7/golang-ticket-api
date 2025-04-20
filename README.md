@@ -3,7 +3,11 @@ Ticketing Backend in Golang
 
 This Test Project pretends to generate tickets using Golang, taking the commit to generate and validate the ticket properly.
 
+- Create integration
+- Disable integration
 - Generate ticket
 - Validate ticket
-- CRUD App
-- Generate Keys for App
+
+
+Install goose (For migrations)
+goose create sql sql
