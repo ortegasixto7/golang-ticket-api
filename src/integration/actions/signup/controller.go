@@ -8,7 +8,7 @@ import (
 )
 
 type Controller struct {
-	Repo *repository.IntegrationRepositoryInterface
+	Repo repository.IntegrationRepositoryInterface
 }
 
 func (ctrl *Controller) SignUp(ctx *gin.Context) {

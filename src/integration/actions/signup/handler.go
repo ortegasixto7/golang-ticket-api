@@ -6,7 +6,7 @@ import (
 	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
 )
 
-func Execute(req *Request, repo *repository.IntegrationRepositoryInterface) (*Response, error) {
+func Execute(req *Request, repo repository.IntegrationRepositoryInterface) (*Response, error) {
 	if err := req.Validate(); err != nil {
 		return nil, err
 	}
@@ -17,7 +17,7 @@ func Execute(req *Request, repo *repository.IntegrationRepositoryInterface) (*Re
 		Description: req.Description,
 	}
 	integration.GenerateToken()
-	if _, err := (*repo).Save(&integration); err != nil {
+	if _, err := repo.Save(&integration); err != nil {
 		return nil, err
 	}
 
