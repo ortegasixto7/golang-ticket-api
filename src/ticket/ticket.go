@@ -25,3 +25,7 @@ func (tkt *Ticket) GenerateCode() {
 	hash := md5.Sum([]byte(data))
 	tkt.Code = strings.ToUpper(hex.EncodeToString(hash[:]))
 }
+
+func (tkt *Ticket) IsExpired() bool {
+	return tkt.ExpiresAt != nil && tkt.ExpiresAt.Before(time.Now())
+}

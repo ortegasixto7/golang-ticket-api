@@ -6,5 +6,7 @@ import (
 
 type TicketRepositoryInterface interface {
 	Save(model *ticket.Ticket) (*ticket.Ticket, error)
+	Update(model *ticket.Ticket) (*ticket.Ticket, error)
 	GetByID(id int64) (*ticket.Ticket, error)
+	GetByCode(code string) (*ticket.Ticket, error)
 }

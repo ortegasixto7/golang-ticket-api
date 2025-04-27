@@ -12,6 +12,8 @@ import (
 	integrationDB "github.com/ortegasixto7/golang-ticket/src/integration/repository"
 
 	"github.com/ortegasixto7/golang-ticket/src/ticket/actions/generate"
+	"github.com/ortegasixto7/golang-ticket/src/ticket/actions/validate"
+
 	ticketDB "github.com/ortegasixto7/golang-ticket/src/ticket/repository"
 )
 
@@ -38,6 +40,9 @@ func main() {
 	ticketGenerateCtrl := generate.Controller{
 		Repo: ticketRepo,
 	}
+	ticketValidateCtrl := validate.Controller{
+		Repo: ticketRepo,
+	}
 
 	router := gin.Default()
 
@@ -48,6 +53,7 @@ func main() {
 	})
 
 	router.POST("/tickets", ticketGenerateCtrl.Generate)
+	router.POST("/tickets/:id/validate", ticketValidateCtrl.Validate)
 	router.POST("/apps", integrationSignUpCtrl.SignUp)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
