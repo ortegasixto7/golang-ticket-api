@@ -7,11 +7,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	appCreate "github.com/ortegasixto7/golang-ticket/src/app/actions/create"
+	appRegenToken "github.com/ortegasixto7/golang-ticket/src/app/actions/regenerate_token"
 	"github.com/ortegasixto7/golang-ticket/src/database"
-	integrationRegenerateToken "github.com/ortegasixto7/golang-ticket/src/integration/actions/regenerate_token"
-	integrationSignUp "github.com/ortegasixto7/golang-ticket/src/integration/actions/signup"
 
-	integrationDB "github.com/ortegasixto7/golang-ticket/src/integration/repository"
+	appDB "github.com/ortegasixto7/golang-ticket/src/app/repository"
 
 	"github.com/ortegasixto7/golang-ticket/src/ticket/actions/generate"
 	"github.com/ortegasixto7/golang-ticket/src/ticket/actions/validate"
@@ -33,12 +33,12 @@ func main() {
 
 	database.InitDatabase()
 
-	integrationRepo := integrationDB.NewIntegrationRepository()
-	integrationSignUpCtrl := integrationSignUp.Controller{
-		Repo: integrationRepo,
+	appRepo := appDB.NewAppRepository()
+	appCreateCtrl := appCreate.Controller{
+		Repo: appRepo,
 	}
-	integrationRegenerateTokenCtrl := integrationRegenerateToken.Controller{
-		Repo: integrationRepo,
+	appRegenTokenCtrl := appRegenToken.Controller{
+		Repo: appRepo,
 	}
 
 	ticketRepo := ticketDB.NewTicketRepository()
@@ -59,8 +59,8 @@ func main() {
 
 	router.POST("/tickets", ticketGenerateCtrl.Generate)
 	router.POST("/tickets/validate", ticketValidateCtrl.Validate)
-	router.POST("/apps", integrationSignUpCtrl.SignUp)
-	router.POST("/apps/tokens/regenerate", integrationRegenerateTokenCtrl.RegenerateToken)
+	router.POST("/apps", appCreateCtrl.Handle)
+	router.POST("/apps/tokens/regenerate", appRegenTokenCtrl.Handle)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }

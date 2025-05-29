@@ -1,17 +1,17 @@
-package signup
+package create
 
 import (
 	"github.com/google/uuid"
-	"github.com/ortegasixto7/golang-ticket/src/integration"
-	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
+	"github.com/ortegasixto7/golang-ticket/src/app"
+	"github.com/ortegasixto7/golang-ticket/src/app/repository"
 )
 
-func Handle(req *Request, repo repository.IntegrationRepositoryInterface) (*Response, error) {
+func Execute(req *Request, repo repository.AppRepositoryInterface) (*Response, error) {
 	if err := req.Validate(); err != nil {
 		return nil, err
 	}
 
-	integration := integration.Integration{
+	integration := app.App{
 		ID:          uuid.New().String(),
 		Name:        req.Name,
 		Description: req.Description,

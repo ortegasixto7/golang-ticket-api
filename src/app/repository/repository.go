@@ -1,17 +1,17 @@
 package repository
 
 import (
+	"github.com/ortegasixto7/golang-ticket/src/app"
 	"github.com/ortegasixto7/golang-ticket/src/database"
-	"github.com/ortegasixto7/golang-ticket/src/integration"
 )
 
-type IntegrationRepository struct{}
+type AppRepository struct{}
 
-func NewIntegrationRepository() *IntegrationRepository {
-	return &IntegrationRepository{}
+func NewAppRepository() *AppRepository {
+	return &AppRepository{}
 }
 
-func (repo *IntegrationRepository) Save(integration *integration.Integration) (*integration.Integration, error) {
+func (repo *AppRepository) Save(integration *app.App) (*app.App, error) {
 	modelDB := FromDomain(integration)
 	result := database.DB.Create(modelDB)
 	if err := result.Error; err != nil {
@@ -20,8 +20,8 @@ func (repo *IntegrationRepository) Save(integration *integration.Integration) (*
 	return ToDomain(modelDB), nil
 }
 
-func (r *IntegrationRepository) GetByID(id string) (*integration.Integration, error) {
-	var modelDB Integration
+func (r *AppRepository) GetByID(id string) (*app.App, error) {
+	var modelDB App
 	result := database.DB.Where("id = ?", id).First(&modelDB)
 	if err := result.Error; err != nil {
 		return nil, err
@@ -29,8 +29,8 @@ func (r *IntegrationRepository) GetByID(id string) (*integration.Integration, er
 	return ToDomain(&modelDB), nil
 }
 
-func (r *IntegrationRepository) GetByAppToken(appToken string) (*integration.Integration, error) {
-	var modelDB Integration
+func (r *AppRepository) GetByAppToken(appToken string) (*app.App, error) {
+	var modelDB App
 	result := database.DB.Where("app_token = ?", appToken).First(&modelDB)
 	if err := result.Error; err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func (r *IntegrationRepository) GetByAppToken(appToken string) (*integration.Int
 	return ToDomain(&modelDB), nil
 }
 
-func (r *IntegrationRepository) Update(integration *integration.Integration) error {
+func (r *AppRepository) Update(integration *app.App) error {
 	modelDB := FromDomain(integration)
 	result := database.DB.Save(modelDB)
 	return result.Error

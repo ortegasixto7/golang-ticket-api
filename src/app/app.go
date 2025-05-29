@@ -1,4 +1,4 @@
-package integration
+package app
 
 import (
 	"strings"
@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Integration struct {
+type App struct {
 	ID          string
 	Name        string
 	Description string
@@ -18,7 +18,7 @@ type Integration struct {
 	DeletedAt   *time.Time
 }
 
-func (i *Integration) GenerateToken() string {
+func (i *App) GenerateToken() string {
 	token := uuid.New()
 	tokenString := token.String()
 	tokenString = strings.ReplaceAll(tokenString, "-", "")

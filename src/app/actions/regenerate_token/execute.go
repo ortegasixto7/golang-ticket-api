@@ -4,10 +4,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
+	"github.com/ortegasixto7/golang-ticket/src/app/repository"
 )
 
-func Handle(request *Request, repo repository.IntegrationRepositoryInterface) (*Response, error) {
+func Execute(request *Request, repo repository.AppRepositoryInterface) (*Response, error) {
 	integration, err := repo.GetByID(request.AppID)
 	if err != nil {
 		return nil, err

@@ -3,10 +3,10 @@ package repository
 import (
 	"time"
 
-	"github.com/ortegasixto7/golang-ticket/src/integration"
+	"github.com/ortegasixto7/golang-ticket/src/app"
 )
 
-type Integration struct {
+type App struct {
 	ID          string     `gorm:"type:varchar(100);not null"`
 	Name        string     `gorm:"type:varchar(100);not null"`
 	Description string     `gorm:"type:varchar(255);not null"`
@@ -17,8 +17,8 @@ type Integration struct {
 	DeletedAt   *time.Time `gorm:"type:timestamptz"`
 }
 
-func FromDomain(i *integration.Integration) *Integration {
-	return &Integration{
+func FromDomain(i *app.App) *App {
+	return &App{
 		ID:          i.ID,
 		Name:        i.Name,
 		Description: i.Description,
@@ -30,8 +30,8 @@ func FromDomain(i *integration.Integration) *Integration {
 	}
 }
 
-func ToDomain(model *Integration) *integration.Integration {
-	return &integration.Integration{
+func ToDomain(model *App) *app.App {
+	return &app.App{
 		ID:          model.ID,
 		Name:        model.Name,
 		Description: model.Description,

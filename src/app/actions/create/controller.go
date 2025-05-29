@@ -1,17 +1,17 @@
-package regenerate_token
+package create
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ortegasixto7/golang-ticket/src/integration/repository"
+	"github.com/ortegasixto7/golang-ticket/src/app/repository"
 )
 
 type Controller struct {
-	Repo repository.IntegrationRepositoryInterface
+	Repo repository.AppRepositoryInterface
 }
 
-func (ctrl *Controller) RegenerateToken(ctx *gin.Context) {
+func (ctrl *Controller) Handle(ctx *gin.Context) {
 	request := new(Request)
 
 	if err := ctx.ShouldBindJSON(request); err != nil {
@@ -19,11 +19,11 @@ func (ctrl *Controller) RegenerateToken(ctx *gin.Context) {
 		return
 	}
 
-	res, err := Handle(request, ctrl.Repo)
+	res, err := Execute(request, ctrl.Repo)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, res)
+	ctx.JSON(http.StatusCreated, res)
 }

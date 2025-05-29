@@ -1,4 +1,4 @@
-package signup
+package create
 
 type Response struct {
 	ID          string `json:"id"`
