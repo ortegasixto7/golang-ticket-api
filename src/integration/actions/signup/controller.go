@@ -19,7 +19,7 @@ func (ctrl *Controller) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	res, err := Execute(request, ctrl.Repo)
+	res, err := Handle(request, ctrl.Repo)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
