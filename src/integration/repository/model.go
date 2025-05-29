@@ -15,7 +15,6 @@ type Integration struct {
 	CreatedAt   time.Time  `gorm:"type:timestamptz;not null"`
 	UpdatedAt   time.Time  `gorm:"type:timestamptz;not null"`
 	DeletedAt   *time.Time `gorm:"type:timestamptz"`
-	ExpiresAt   *time.Time `gorm:"type:timestamptz"`
 }
 
 func FromDomain(i *integration.Integration) *Integration {

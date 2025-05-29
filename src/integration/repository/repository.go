@@ -14,17 +14,32 @@ func NewIntegrationRepository() *IntegrationRepository {
 func (repo *IntegrationRepository) Save(integration *integration.Integration) (*integration.Integration, error) {
 	modelDB := FromDomain(integration)
 	result := database.DB.Create(modelDB)
-	if result.Error != nil {
-		return nil, result.Error
+	if err := result.Error; err != nil {
+		return nil, err
 	}
 	return ToDomain(modelDB), nil
 }
 
-func (r *IntegrationRepository) GetByID(id int64) (*integration.Integration, error) {
+func (r *IntegrationRepository) GetByID(id string) (*integration.Integration, error) {
 	var modelDB Integration
-	result := database.DB.First(&modelDB, id)
-	if result.Error != nil {
-		return nil, result.Error
+	result := database.DB.Where("id = ?", id).First(&modelDB)
+	if err := result.Error; err != nil {
+		return nil, err
 	}
 	return ToDomain(&modelDB), nil
+}
+
+func (r *IntegrationRepository) GetByAppToken(appToken string) (*integration.Integration, error) {
+	var modelDB Integration
+	result := database.DB.Where("app_token = ?", appToken).First(&modelDB)
+	if err := result.Error; err != nil {
+		return nil, err
+	}
+	return ToDomain(&modelDB), nil
+}
+
+func (r *IntegrationRepository) Update(integration *integration.Integration) error {
+	modelDB := FromDomain(integration)
+	result := database.DB.Save(modelDB)
+	return result.Error
 }

@@ -16,7 +16,6 @@ type Integration struct {
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   *time.Time
-	ExpiresAt   *time.Time
 }
 
 func (i *Integration) GenerateToken() string {
