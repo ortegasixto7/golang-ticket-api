@@ -8,7 +8,13 @@ import (
 )
 
 type Controller struct {
-	Repo repository.AppRepositoryInterface
+	repo repository.AppRepositoryInterface
+}
+
+func NewController(repo repository.AppRepositoryInterface) *Controller {
+	return &Controller{
+		repo: repo,
+	}
 }
 
 func (ctrl *Controller) Handle(ctx *gin.Context) {
@@ -19,7 +25,7 @@ func (ctrl *Controller) Handle(ctx *gin.Context) {
 		return
 	}
 
-	res, err := Execute(request, ctrl.Repo)
+	res, err := Execute(ctx, request, ctrl.repo)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

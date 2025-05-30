@@ -38,9 +38,7 @@ func main() {
 	database.InitDatabase()
 
 	appRepo := appDB.NewAppRepository()
-	appCreateCtrl := appCreate.Controller{
-		Repo: appRepo,
-	}
+	appCreateCtrl := appCreate.NewController(appRepo)
 	appRegenTokenCtrl := appRegenToken.Controller{
 		Repo: appRepo,
 	}
