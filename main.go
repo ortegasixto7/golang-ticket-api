@@ -12,7 +12,9 @@ import (
 	"github.com/ortegasixto7/golang-ticket/src/database"
 
 	appDB "github.com/ortegasixto7/golang-ticket/src/app/repository"
+	userLogin "github.com/ortegasixto7/golang-ticket/src/user/actions/login"
 	userRegister "github.com/ortegasixto7/golang-ticket/src/user/actions/register"
+
 	userDB "github.com/ortegasixto7/golang-ticket/src/user/repository"
 
 	"github.com/ortegasixto7/golang-ticket/src/ticket/actions/generate"
@@ -53,6 +55,7 @@ func main() {
 
 	userRepo := userDB.NewUserRepository()
 	userRegisterCtrl := userRegister.NewController(userRepo)
+	userLoginCtrl := userLogin.NewController(userRepo)
 
 	router := gin.Default()
 
@@ -67,6 +70,7 @@ func main() {
 	router.POST("/apps", appCreateCtrl.Handle)
 	router.POST("/apps/tokens/regenerate", appRegenTokenCtrl.Handle)
 	router.POST("/users/register", userRegisterCtrl.Handle)
+	router.POST("/users/login", userLoginCtrl.Handle)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
